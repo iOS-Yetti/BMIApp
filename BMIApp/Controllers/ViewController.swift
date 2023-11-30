@@ -49,7 +49,8 @@ final class ViewController: UIViewController {
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 5
         textField.clipsToBounds = true
-        textField.keyboardType = .asciiCapableNumberPad
+        textField.keyboardType = .decimalPad
+        textField.addDoneToolbar()
         return textField
     }()
     
@@ -192,7 +193,7 @@ extension ViewController: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         // 백스페이스로 지울 때도 호출 되기 때문에 string == ""까지 조건에 있어야 한다.
-        guard Int(string) != nil || string == "" else { return false }
+        guard Int(string) != nil || string == "." || string == "" else { return false }
         return true
     }
     
