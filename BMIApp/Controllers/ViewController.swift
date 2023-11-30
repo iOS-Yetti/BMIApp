@@ -9,17 +9,25 @@ import UIKit
 
 final class ViewController: UIViewController {
     // MARK: - Property Closure
-    private let mainLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "키와 몸무게를 입력해 주세요"
+        label.text = "BMI 계산기"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 20)
+        label.font = .boldSystemFont(ofSize: 50)
+        return label
+    }()
+    
+    private let inputCommandLabel: UILabel = {
+        let label = UILabel()
+        label.text = "키와 몸무게를 입력해 주세요."
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
     private let heightLabel: UILabel = {
         let label = UILabel()
-        label.text = "키"
+        label.text = "키(cm)"
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .center
         return label
@@ -27,7 +35,7 @@ final class ViewController: UIViewController {
     
     private let weightLabel: UILabel = {
         let label = UILabel()
-        label.text = "몸무게"
+        label.text = "몸무게(kg)"
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .center
         return label
@@ -71,7 +79,7 @@ final class ViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 20
-        stackView.alignment = .center
+        stackView.alignment = .fill
         return stackView
     }()
     
@@ -104,7 +112,8 @@ final class ViewController: UIViewController {
     
     // MARK: - Method
     private func configureUI() {
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        inputCommandLabel.translatesAutoresizingMaskIntoConstraints = false
         heightLabel.translatesAutoresizingMaskIntoConstraints = false
         weightLabel.translatesAutoresizingMaskIntoConstraints = false
         heightTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -116,6 +125,7 @@ final class ViewController: UIViewController {
         
         view.backgroundColor = .systemGray5
         
+        view.addSubview(titleLabel)
         view.addSubview(stackView)
         view.addSubview(calculateBMIButton)
         
@@ -125,14 +135,17 @@ final class ViewController: UIViewController {
         weightStackView.addArrangedSubview(weightLabel)
         weightStackView.addArrangedSubview(weightTextField)
         
-        stackView.addArrangedSubview(mainLabel)
+        stackView.addArrangedSubview(inputCommandLabel)
         stackView.addArrangedSubview(heightStackView)
         stackView.addArrangedSubview(weightStackView)
     }
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 80),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -142,8 +155,8 @@ final class ViewController: UIViewController {
             calculateBMIButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             calculateBMIButton.heightAnchor.constraint(equalToConstant: 45),
             
-            heightLabel.widthAnchor.constraint(equalToConstant: 40),
-            weightLabel.widthAnchor.constraint(equalToConstant: 40)
+            heightLabel.widthAnchor.constraint(equalToConstant: 69),
+            weightLabel.widthAnchor.constraint(equalToConstant: 69)
         ])
     }
     
